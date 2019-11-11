@@ -1,11 +1,11 @@
 //  Copyright 2018. Akamai Technologies, Inc
-//  
+//
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
 //  You may obtain a copy of the License at
-//  
+//
 //      http://www.apache.org/licenses/LICENSE-2.0
-//  
+//
 //  Unless required by applicable law or agreed to in writing, software
 //  distributed under the License is distributed on an "AS IS" BASIS,
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -111,6 +111,8 @@ const prepareSettings = function(dependencies, procEnv, utils) {
     }
 
     devopsSettings.edgeGridConfig = prepareEdgeGridConfig(utils, devopsSettings, dependencies);
+
+    devopsSettings.accountKey = dependencies.accountKey
 
     return devopsSettings;
 };
@@ -229,7 +231,7 @@ const createDevOps = function(dependencies = {}) {
 
     function getPAPI() {
         return getOrCreate("papi", () => {
-            return new papiClass(getOpenClient());
+            return new papiClass(getOpenClient(), devopsSettings.accountKey);
         });
     }
 
