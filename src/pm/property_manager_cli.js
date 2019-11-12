@@ -1,11 +1,11 @@
 //  Copyright 2018. Akamai Technologies, Inc
-//  
+//
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
 //  You may obtain a copy of the License at
-//  
+//
 //      http://www.apache.org/licenses/LICENSE-2.0
-//  
+//
 //  Unless required by applicable law or agreed to in writing, software
 //  distributed under the License is distributed on an "AS IS" BASIS,
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -110,12 +110,14 @@ module.exports = function(cmdArgs = process.argv, procEnv = process.env,
         let clientType = "regular";
         let outputFormat;
         let section;
+        let accountKey;
         if (options.parent) {
             let parentOptions = options.parent;
             if (parentOptions.format) {
                 outputFormat = parentOptions.format;
             }
             section = parentOptions.section;
+            accountKey = parentOptions.accountKey;
         }
         logging.log4jsLogging(useVerboseLogging(options), 'snippets');
 
@@ -145,7 +147,8 @@ module.exports = function(cmdArgs = process.argv, procEnv = process.env,
             clientType,
             section,
             version,
-            outputFormat
+            outputFormat,
+            accountKey
         });
     };
 
@@ -517,6 +520,7 @@ Are you sure you want to Deactivate the property '${propertyName}' on network '$
         .option('-v, --verbose', 'Verbose output, show logging on stdout')
         .option('-s, --section [section]', 'Section name representing Client ID in .edgerc file, defaults to "credentials"')
         .option('-f, --format [format]', "Select output format, allowed values are 'json' or 'table'")
+        .option('-k, --account-key <accountKey>', "Account Key")
 
     commander
         .command("new-property", "Create a new PM CLI property with provided attributes.")
